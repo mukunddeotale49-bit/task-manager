@@ -116,3 +116,23 @@ docker compose -f docker-compose.prod.yml up --build -d
 docker logs taskmanager-backend
 ```
 Visit `http://<YOUR_EC2_PUBLIC_IP>` in your browser.
+
+
+## crete an network before running container 
+```
+docker network create app-network
+```
+## run backend container 
+```
+docker run -d --name backend --network app-network --restart unless-stopped -p 5000:5000 --env-file .env back:v1
+```
+## run frontend container 
+```
+docker run -d --name frontend --network app-network --restart unless-stopped -p 80:80 front:v1
+```
+check the host IP with 80 port 
+
+
+
+
+
